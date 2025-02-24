@@ -11,6 +11,8 @@
 #include <dt-bindings/input/gpio-keys.h>
 #include <dt-bindings/leds/common.h>
 #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+#include <dt-bindings/sound/qcom,q6afe.h>
+#include <dt-bindings/sound/qcom,q6asm.h>
 
 /delete-node/ &adsp_region;
 /delete-node/ &buffer_mem;
@@ -58,6 +60,14 @@
 		enable-active-high;
 		pinctrl-names = "default";
 		pinctrl-0 = <&lcd_pwr_en_default>;
+	};
+
+	clocks {
+		int_mclk0: int-mclk0 {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <9600000>;
+		};
 	};
 
 	vph_pwr: vph-pwr-regulator {
@@ -144,6 +154,44 @@
 		};
 
 	};
+
+	sound {
+		compatible = "qcom,sdm660-internal-sndcard";
+		model = "Xiaomi Mi Pad 4 (Plus)";
+		pinctrl-0 = <&cdc_pdm_default>,
+			    <&cdc_dmic_default>;
+		pinctrl-names = "default";
+		audio-routing = "Analog PDM_RX1", "Digital PDM_RX1",
+				"Analog PDM_RX2", "Digital PDM_RX2",
+				"Analog PDM_RX3", "Digital PDM_RX3",
+				"Digital LPASS_PDM_TX", "Analog PDM_TX",
+				"Analog AMIC2", "Analog MIC BIAS External2";
+		mm1-dai-link {
+			link-name = "MultiMedia1";
+			cpu {
+				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
+			};
+		};
+		mm2-dai-link {
+			link-name = "MultiMedia2";
+			cpu {
+				sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
+			};
+		};
+		int0-mi2s-rx-link {
+			link-name = "Internal MI2S Playback";
+			cpu {
+				sound-dai = <&q6afedai INT0_MI2S_RX>;
+			};
+			platform {
+				sound-dai = <&q6routing>;
+			};
+			codec {
+				sound-dai = <&pm660l_codec 0>,
+					    <&lpass_codec 0>;
+			};
+		};
+	};
 };
 
 &adreno_gpu {
@@ -173,6 +221,21 @@
 
 &mmss_smmu {
 	status = "okay";
+};
+
+&q6afedai {
+	dai@81 {
+		reg = <INT0_MI2S_RX>;
+		qcom,sd-lines = <0 1>;
+	};
+};
+&q6asmdai {
+	dai@0 {
+		reg = <0>;
+	};
+	dai@1 {
+		reg = <1>;
+	};
 };
 
 &pm660_charger {
