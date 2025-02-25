@@ -28,6 +28,41 @@ enum lpass_lpi_functions {
 	LPI_MUX__,
 };
 
+static const u32 sdm660_lpi_offset[] = {
+	0x00000000,
+	0x00001000,
+	0x00002000,
+	0x00002010,
+	0x00003000,
+	0x00003010,
+	0x00004000,
+	0x00004010,
+	0x00005000,
+	0x00005010,
+	0x00005020,
+	0x00005030,
+	0x00006000,
+	0x00006010,
+	0x00007000,
+	0x00007010,
+	0x00005040,
+	0x00005050,
+	0x00008000,
+	0x00008010,
+	0x00008020,
+	0x00008030,
+	0x00008040,
+	0x00008050,
+	0x00008060,
+	0x00008070,
+	0x00009000,
+	0x00009010,
+	0x0000A000,
+	0x0000A010,
+	0x0000B000,
+	0x0000B010,
+};
+
 static int gpio0_pins[] = { 0 };
 static int gpio1_pins[] = { 1 };
 static int gpio2_pins[] = { 2 };
@@ -154,6 +189,11 @@ const struct lpi_function sdm660_lpi_pinctrl_functions[] = {
 	LPI_FUNCTION(pdm_sync),
 };
 
+static u32 pin_offset_sdm660(int pin_id)
+{
+	return sdm660_lpi_offset[pin_id];
+}
+
 static const struct lpi_pinctrl_variant_data sdm660_lpi_pinctrl_data = {
 	.pins = sdm660_lpi_pinctrl_pins,
 	.npins = ARRAY_SIZE(sdm660_lpi_pinctrl_pins),
@@ -161,6 +201,7 @@ static const struct lpi_pinctrl_variant_data sdm660_lpi_pinctrl_data = {
 	.ngroups = ARRAY_SIZE(sdm660_lpi_pinctrl_groups),
 	.functions = sdm660_lpi_pinctrl_functions,
 	.nfunctions = ARRAY_SIZE(sdm660_lpi_pinctrl_functions),
+	.pin_offset = pin_offset_sdm660,
 };
 
 static const struct of_device_id sdm660_lpi_pinctrl_of_match[] = {
