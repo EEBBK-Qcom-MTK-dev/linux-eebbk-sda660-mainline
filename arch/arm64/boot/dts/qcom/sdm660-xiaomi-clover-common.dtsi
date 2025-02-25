@@ -238,6 +238,23 @@
 	};
 };
 
+&lpass_codec {
+	clocks = <&int_mclk0>,
+		 <&int_cdc_bclk>;
+	clock-names = "mclk", "ahbix-clk";
+	assigned-clocks = <&int_mclk0>;
+	assigned-clock-rates = <9600000>;
+	status = "okay";
+};
+&pm660l_codec {
+	clocks = <&int_mclk0>;
+	clock-names = "mclk";
+	assigned-clocks = <&int_mclk0>;
+	assigned-clock-rates = <9600000>;
+	//vdd-micbias-supply = <&vreg_l7b_3p125>;
+	status = "okay";
+};
+
 &pm660_charger {
 	monitored-battery = <&battery>;
 
