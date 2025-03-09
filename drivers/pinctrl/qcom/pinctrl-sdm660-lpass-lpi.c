@@ -202,6 +202,7 @@ static const struct lpi_pinctrl_variant_data sdm660_lpi_pinctrl_data = {
 	.functions = sdm660_lpi_pinctrl_functions,
 	.nfunctions = ARRAY_SIZE(sdm660_lpi_pinctrl_functions),
 	.pin_offset = pin_offset_sdm660,
+	.flags = LPI_FLAG_SLEW_RATE_SAME_REG,
 };
 
 static const struct of_device_id sdm660_lpi_pinctrl_of_match[] = {
