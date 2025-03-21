@@ -161,7 +161,14 @@
 		pinctrl-0 = <&cdc_pdm_default>,
 			    <&cdc_dmic_default>;
 		pinctrl-names = "default";
-		audio-routing = "Analog PDM_RX1", "Digital PDM_RX1",
+		audio-routing = "Analog RX_BIAS", "Digital MCLK",
+				"Analog INT_LDO_H", "Digital MCLK",
+				"Digital RX_I2S_CLK", "Digital MCLK",
+				"Digital TX_I2S_CLK", "Digital MCLK",
+				"Digital ADC1", "Analog ADC1",
+				"Digital ADC2", "Analog ADC2",
+				"Digital ADC3", "Analog ADC3",
+				"Analog PDM_RX1", "Digital PDM_RX1",
 				"Analog PDM_RX2", "Digital PDM_RX2",
 				"Analog PDM_RX3", "Digital PDM_RX3",
 				"Digital LPASS_PDM_TX", "Analog PDM_TX",
