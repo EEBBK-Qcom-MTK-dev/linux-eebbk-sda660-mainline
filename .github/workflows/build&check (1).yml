@@ -27,9 +27,12 @@ jobs:
       - name: Compile kernel
         run: |
           make O=.output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
+          make O=.output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
 
       - name: Upload kernel
         uses: actions/upload-artifact@v4
         with:
           name: image
-          path: .output/arch/arm64/boot/*.gz
+          path:
+              .output/arch/arm64/boot/*.gz
+              .output/arch/arm64/boot/dts/qcom/*.dtb
