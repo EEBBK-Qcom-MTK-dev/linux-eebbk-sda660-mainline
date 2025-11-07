@@ -1,0 +1,96 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+* Copyright (c) 2025, XiKoTaSu <3329989998@qq.com>
+*/
+
+/dts-v1/;
+
+#include "sdm660.dtsi"
+#include "pm660.dtsi"
+#include "pm660l.dtsi"
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/input/gpio-keys.h>
+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+
+/ {
+	model = "EEBBK S5";
+	compatible = "eebbk,h7000", "qcom,sda660";
+	chassis-type = "tablet";
+
+	aliases {
+		serial0 = &blsp1_uart2;
+	};
+
+	chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		/* stdout-path = "serial0:115200n8"; */
+
+		framebuffer0: framebuffer@9d400000 {
+			compatible = "simple-framebuffer";
+			reg = <0 0x9d400000 0 (1600 * 2176 * 4)>;
+			width = <1600>;
+			height = <2176>;
+			stride = <(1600 * 4)>;
+			format = "a8r8g8b8";
+		};
+	};
+
+	vph_pwr: vph-pwr-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "vph_pwr";
+		regulator-min-microvolt = <3700000>;
+		regulator-max-microvolt = <3700000>;
+
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	gpio-keys {
+		compatible = "gpio-keys";
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&vol_up_default>;
+
+		key-volup {
+			label = "Volume Up";
+			gpios = <&pm660l_gpios 7 GPIO_ACTIVE_LOW>;
+			linux,code = <KEY_VOLUMEUP>;
+			debounce-interval = <15>;
+		};
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+/*
+jason:/ # cat /sys/module/ramoops/parameters/*                                                                                                                                                                                                                      
+2097152		console_size	0x200000
+1		dump_oops
+0		ecc
+0		ftrace_size	0x0
+2952790016	mem_address	0xb0000000
+4194304		mem_size	0x400000
+0		mem_type
+2097152		pmsg_size	0x200000
+0		record_size	0x0
+*/
+		ramoops@a0119000 {
+			compatible = "ramoops";
+			reg = <0x0 0xa0119000 0x0 0xe0000>;
+			console-size = <0x10000>;
+			record-size = <0x1000>;
+			ftrace-size = <0x1000>;
+			pmsg-size = <0x10000>;
+		};
+
+		framebuffer_mem: memory@9d400000 {
+			reg = <0x0 0x9d400000 0x0 0x23ff000>;
+			no-map;
+		};
+	};
+
