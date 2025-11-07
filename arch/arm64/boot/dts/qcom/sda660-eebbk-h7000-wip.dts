@@ -67,18 +67,6 @@
 		#size-cells = <2>;
 		ranges;
 
-/*
-jason:/ # cat /sys/module/ramoops/parameters/*                                                                                                                                                                                                                      
-2097152		console_size	0x200000
-1		dump_oops
-0		ecc
-0		ftrace_size	0x0
-2952790016	mem_address	0xb0000000
-4194304		mem_size	0x400000
-0		mem_type
-2097152		pmsg_size	0x200000
-0		record_size	0x0
-*/
 		ramoops@a0119000 {
 			compatible = "ramoops";
 			reg = <0x0 0xa0119000 0x0 0xe0000>;
