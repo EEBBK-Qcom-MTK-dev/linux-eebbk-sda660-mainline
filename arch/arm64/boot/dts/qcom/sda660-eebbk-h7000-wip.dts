@@ -41,8 +41,8 @@
 	vph_pwr: vph-pwr-regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "vph_pwr";
-		regulator-min-microvolt = <3700000>;
-		regulator-max-microvolt = <3700000>;
+		regulator-min-microvolt = <4400000>;
+		regulator-max-microvolt = <3500000>;
 
 		regulator-always-on;
 		regulator-boot-on;
