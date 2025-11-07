@@ -93,4 +93,4 @@ jason:/ # cat /sys/module/ramoops/parameters/*
 			no-map;
 		};
 	};
-
+};
