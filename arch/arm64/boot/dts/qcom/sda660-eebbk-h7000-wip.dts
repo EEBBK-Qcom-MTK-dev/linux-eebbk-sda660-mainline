@@ -12,6 +12,11 @@
 #include <dt-bindings/input/gpio-keys.h>
 #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
 
+/delete-node/ &adsp_region;
+/delete-node/ &cdsp_region;
+/delete-node/ &mba_region;
+/delete-node/ &zap_shader_region;
+
 / {
 	model = "EEBBK S5";
 	compatible = "eebbk,h7000", "qcom,sda660";
@@ -37,15 +42,34 @@
 			format = "a8r8g8b8";
 		};
 	};
+	
+	battery: battery {
+		compatible = "simple-battery";
+
+		charge-full-design-microamp-hours = <6665000>;
+		voltage-min-design-microvolt = <3400000>;
+		voltage-max-design-microvolt = <4400000>;
+	};
 
 	vph_pwr: vph-pwr-regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "vph_pwr";
-		regulator-min-microvolt = <4400000>;
-		regulator-max-microvolt = <3500000>;
+		regulator-min-microvolt = <3700000>;
+		regulator-max-microvolt = <3700000>;
 
 		regulator-always-on;
 		regulator-boot-on;
+	};
+	
+	lcd_pwr: lcd-power-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "lcd_pwr";
+		regulator-min-microvolt = <5400000>;
+		regulator-max-microvolt = <5400000>;
+		gpio = <&pm660l_gpios 5 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		pinctrl-0 = <&lcd_pwr_en_default>;
+		pinctrl-names = "default";
 	};
 
 	gpio-keys {
@@ -76,8 +100,29 @@
 			pmsg-size = <0x10000>;
 		};
 
-		framebuffer_mem: memory@9d400000 {
-			reg = <0x0 0x9d400000 0x0 0x23ff000>;
+		framebuffer_memory@9d400000 {
+			reg = <0x0 0x9d400000 0x0 0x2400000>;
+			no-map;
+		};
+		
+		adsp_region: adsp@92a00000 {
+			reg = <0x0 0x92a00000 0x0 0x1e00000>;
+			no-map;
+		};
+
+		mba_region: mba@94800000 {
+			reg = <0x0 0x94800000 0x0 0x200000>;
+			no-map;
+		};
+
+		cdsp_region: cdsp@94b00000 {
+			reg = <0x00 0x94b00000 0x00 0x600000>;
+			no-map;
+		};
+		
+		zap_shader_region: gpu@fa800000 {
+			compatible = "shared-dma-pool";
+			reg = <0x0 0xfa800000 0x0 0x2000>;
 			no-map;
 		};
 	};
@@ -97,4 +142,13 @@
 		input-enable;
 		qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
 	};
+};
+
+&adreno_gpu {
+	status = "okay";
+};
+
+&adreno_gpu_zap {
+	firmware-name = "a512_zap.mdt";
+	memory-region = <&zap_shader_region>;
 };
