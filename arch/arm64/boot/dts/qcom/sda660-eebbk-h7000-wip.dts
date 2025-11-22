@@ -118,7 +118,7 @@
 		cdsp_region: cdsp@94b00000 {
 			reg = <0x00 0x94b00000 0x00 0x600000>;
 			no-map;
-		}；
+		};
 	};
 };
 
