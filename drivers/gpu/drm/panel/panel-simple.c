@@ -4750,6 +4750,38 @@ static const struct panel_desc tpk_f10a_0102 = {
 	},
 };
 
+static const struct drm_display_mode nt35597_wqxga_truly_mode = {
+	.clock = (800 + 25 + 14 + 25) * (2176 + 250 + 8 + 73) * 60 / 1000,
+	.hdisplay = 800,
+	.hsync_start = 800 + 25,
+	.hsync_end = 800 + 25 + 14,
+	.htotal = 800 + 25 + 14 + 25,
+	.vdisplay = 2176,
+	.vsync_start = 2176 + 250,
+	.vsync_end = 2176 + 250 + 8,
+	.vtotal = 2176 + 250 + 8 + 73,
+	.width_mm = 147,
+	.height_mm = 197,
+	.type = DRM_MODE_TYPE_DRIVER,
+};
+
+static const struct panel_desc_dsi nt35597_wqxga_truly = {
+	.desc = {
+		.modes = &nt35597_wqxga_truly_mode,
+		.num_modes = 1,
+		.bpc = 8,
+		.size = {
+			.width = 147,
+			.height = 197,
+		},
+		.connector_type = DRM_MODE_CONNECTOR_DSI,
+	},
+	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+		 MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
+	.format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};
+
 static const struct display_timing urt_umsh_8596md_timing = {
 	.pixelclock = { 33260000, 33260000, 33260000 },
 	.hactive = { 800, 800, 800 },
@@ -5395,6 +5427,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "tpk,f10a-0102",
 		.data = &tpk_f10a_0102,
+	}, {
+	    .compatible = "truly,nt35597-wqxga-truly",
+		.data = &nt35597_wqxga_truly,
 	}, {
 		.compatible = "urt,umsh-8596md-t",
 		.data = &urt_umsh_8596md_parallel,
