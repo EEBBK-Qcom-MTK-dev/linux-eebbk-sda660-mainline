@@ -35,5 +35,5 @@ jobs:
         with:
           name: image
           path:
-              out/arch/arm64/boot/Image.gz
-              out/arch/arm64/boot/dts/qcom/*.dtb
+            out/arch/arm64/boot/Image.gz
+            out/arch/arm64/boot/dts/qcom/*.dtb
