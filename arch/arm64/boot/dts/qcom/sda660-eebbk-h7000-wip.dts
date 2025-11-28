@@ -127,12 +127,6 @@
 };
 
 &pm660l_gpios {
-    lcd_pwr_en_default: lcd-pwr-en-default-state {
-		pins = "gpio5";
-		function = PMIC_GPIO_FUNC_NORMAL;
-		bias-disable;
-	};
-	
 	vol_up_default: vol-up-default-state {
 		pins = "gpio7";
 		function = PMIC_GPIO_FUNC_NORMAL;
