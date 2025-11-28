@@ -166,7 +166,7 @@
 	panel: panel@0 {
 		compatible = "truly,nt35597-2K-display";
 		reg = <0>;
-		vddio-supply = <&vreg_l11a_1p8>;
+		vdda-supply = <&vreg_l6b_3p3>;
 		vdispp-supply = <&lcdb_fixed>;
 		vdispn-supply = <&lcdb_fixed>;
 		pinctrl-names = "default", "suspend";
