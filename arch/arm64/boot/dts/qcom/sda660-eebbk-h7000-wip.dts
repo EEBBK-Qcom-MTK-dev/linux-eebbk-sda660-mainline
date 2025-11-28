@@ -645,9 +645,7 @@
 	maximum-speed = "high-speed";
 	phys = <&qusb2phy0>;
 	phy-names = "usb2-phy";
-
 	dr_mode = "peripheral";
-	extcon = <&extcon_usb>;
 };
 
 &venus {
