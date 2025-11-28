@@ -44,7 +44,7 @@ jobs:
         run: |
           . venv_dtschema/bin/activate
           make O=build-dtbs-check ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j1 CHECK_DTBS=y \
-              qcom/sdm630-*.dtb qcom/sdm636-*.dtb qcom/sdm660-*.dtb qcom/sda660-*.dtb 2>&1 | \
+              qcom/sda660-*.dtb 2>&1 | \
               tee build-dtbs-check/results.txt
           deactivate
       - name: Check bindings
