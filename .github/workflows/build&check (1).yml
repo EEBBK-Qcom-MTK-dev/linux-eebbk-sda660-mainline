@@ -8,7 +8,7 @@ on:
     tags:
       - v*-sdm660
 jobs:
-  dbts-check:
+  build:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -34,6 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: image
-          path:
-            out/arch/arm64/boot/Image.gz
-            out/arch/arm64/boot/dts/qcom/*.dtb
+          path: out/arch/arm64/boot/Image.gz
