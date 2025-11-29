@@ -64,7 +64,7 @@
 	lcdb_fixed: lcdb-regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "lcdb";
-		regulator-min-microvolt = <6000000>;
+		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <6000000>;
 		regulator-always-on;
 		regulator-boot-on;
@@ -155,7 +155,7 @@
 	#address-cells = <1>;
 	#size-cells = <0>;
 	vdd-supply = <&vreg_l1b_0p925>;
-	vdda-supply = <&vreg_l6b_3p3>;
+	vdda-supply = <&vreg_l1a_1p225>;
 
 	panel: panel@0 {
 		compatible = "truly,nt35597-2K-display";
