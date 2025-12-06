@@ -645,3 +645,26 @@
 &venus {
 	status = "okay";
 };
+
+&sdhc_1 {
+	status = "okay";
+	supports-cqe;
+
+	vmmc-supply = <&vreg_l4b_2p95>;
+	vqmmc-supply = <&vreg_l8a_1p8>;
+
+	mmc-ddr-1_8v;
+	mmc-hs400-1_8v;
+	mmc-hs400-enhanced-strobe;
+};
+
+&sdhc_2 {
+	status = "okay";
+
+	vmmc-supply = <&vreg_l5b_2p95>;
+	vqmmc-supply = <&vreg_l2b_2p95>;
+
+	cd-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
+	no-sdio;
+	no-mmc;
+};
