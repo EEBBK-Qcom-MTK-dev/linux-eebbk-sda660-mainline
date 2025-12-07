@@ -614,7 +614,7 @@
 		bias-disable;
 	};
 
-    mdss_dsi_suspend: mdss-dsi-suspend-state {
+        mdss_dsi_suspend: mdss-dsi-suspend-state {
 		pins = "gpio53";
 		function = "gpio";
 		drive-strength = <2>;
