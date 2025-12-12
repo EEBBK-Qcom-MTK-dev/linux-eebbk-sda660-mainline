@@ -145,7 +145,7 @@
 	memory-region = <&zap_shader_region>;
 };
 
-&blsp_i2c5 {
+&blsp_i2c1 {
 	status = "okay";
 
 	touchscreen@38 {
@@ -625,7 +625,7 @@
 &tlmm {
 	gpio-reserved-ranges = <8 4>;
 	
-    ts_init_active: ts-init-active-state {
+        ts_int_active: ts-int-active-state {
         pins = "gpio67";
         function = "gpio";
         drive-strength = <8>;
