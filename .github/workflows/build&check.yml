@@ -23,23 +23,20 @@ jobs:
       - name: Configure kernel (first menuconfig)
         run: |
           make ARCH=arm64 defconfig
-          printf '\n' | make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
     
       - name: Merge sdm660_defconfig
         run: |
           cat arch/arm64/configs/sdm660_defconfig >> .config
-          sort -u -t'=' -k1,1 .config | grep -v "^#" > .config.tmp && mv .config.tmp .config
     
       - name: Configure kernel (second menuconfig)
         run: |
-          printf '\n' | make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
       - name: Prepare build direcotory
         run: |
           mkdir output
-      - name: Prepare config
-        run: |
-          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
+      #- name: Prepare config
+        #run: |
+          #make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
       - name: Compile kernel
         run: |
           make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
