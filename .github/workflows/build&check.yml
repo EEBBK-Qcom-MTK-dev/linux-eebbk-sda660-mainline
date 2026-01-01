@@ -35,3 +35,9 @@ jobs:
         with:
           name: image
           path: out/arch/arm64/boot/Image.gz
+
+      - name: Upload panel modules
+        uses: actions/upload-artifact@v4
+        with:
+          name: panel
+          path: out/drivers/gpu/drm/panel/panel-truly-nt35597.o
