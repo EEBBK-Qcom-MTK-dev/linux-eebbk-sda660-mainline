@@ -238,6 +238,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-sony-xperia-ganges-mermaid.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-xiaomi-tulip.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-xiaomi-whyred.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-bbry-athena-boe.dtb
+dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-oppo-16051-wip.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-xiaomi-clover-plus.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-xiaomi-jasmine.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-xiaomi-lavender-shenchao.dtb
