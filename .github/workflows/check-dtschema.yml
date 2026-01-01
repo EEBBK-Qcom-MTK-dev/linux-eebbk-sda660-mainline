@@ -3,7 +3,7 @@ on:
     types: [opened, synchronize, reopened]
   push:
     branches:
-      - qcom-sdm660-6.*.y
+      - oppo-r11-6.17-wip
     tags:
       - v*-sdm660
 jobs:
