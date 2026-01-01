@@ -39,6 +39,7 @@ jobs:
           #make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
       - name: Compile kernel
         run: |
+          make ARCH=arm64 mrproper
           make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
           make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
 
