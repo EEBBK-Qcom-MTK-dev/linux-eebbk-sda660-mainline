@@ -702,10 +702,6 @@
 
 	vmmc-supply = <&vreg_l5b_2p95>;
 	vqmmc-supply = <&vreg_l2b_2p95>;
-
-	cd-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
-	no-sdio;
-	no-mmc;
 };
 
 &wifi {
