@@ -233,6 +233,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm632-fairphone-fp3.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm632-motorola-ocean.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-asus-x00td.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-bbry-luna-boe.dtb
+dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-bq-Aquaris-x2.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-motorola-beckham.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-sony-xperia-ganges-mermaid.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-xiaomi-tulip.dtb
