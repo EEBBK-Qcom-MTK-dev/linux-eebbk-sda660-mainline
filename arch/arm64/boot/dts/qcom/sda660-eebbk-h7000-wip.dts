@@ -603,26 +603,6 @@
 	};
 };
 
-&sdhc_1 {
-	supports-cqe;
-
-	mmc-hs200-1_8v;
-	mmc-hs400-1_8v;
-	mmc-hs400-enhanced-strobe;
-
-	vmmc-supply = <&vreg_l4b_2p95>;
-	vqmmc-supply = <&vreg_l8a_1p8>;
-
-	status = "disabled";
-};
-
-&sdhc_2 {
-	vmmc-supply = <&vreg_l5b_2p95>;
-	vqmmc-supply = <&vreg_l2b_2p95>;
-
-	status = "disabled";
-};
-
 &tlmm {
 	gpio-reserved-ranges = <8 4>;
 	
