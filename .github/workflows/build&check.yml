@@ -29,7 +29,9 @@ jobs:
       - name: Compile kernel
         run: |
           make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
+          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules
           make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
+          zip output.zip out/
 
       - name: Upload kernel
         uses: actions/upload-artifact@v4
@@ -37,8 +39,8 @@ jobs:
           name: image
           path: out/arch/arm64/boot/Image.gz
 
-      - name: Upload panel modules
+      - name: Upload OUT zip
         uses: actions/upload-artifact@v4
         with:
           name: panel
-          path: out/drivers/gpu/drm/panel/panel-truly-nt35597.o
+          path: output.zip
