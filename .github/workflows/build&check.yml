@@ -25,13 +25,13 @@ jobs:
           mkdir output
       - name: Prepare config
         run: |
-          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
+          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
       - name: Compile kernel
         run: |
-          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
-          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules
-          make O=out ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
-          zip output.zip out/
+          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
+          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules
+          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
+          zip -r output.zip output/
 
       - name: Upload kernel
         uses: actions/upload-artifact@v4
