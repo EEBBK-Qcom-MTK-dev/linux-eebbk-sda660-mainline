@@ -38,8 +38,28 @@ jobs:
           name: image
           path: output/arch/arm64/boot/Image.gz
 
-      - name: Upload panel module
-        uses: actions/upload-artifact@v4
+      - name: Package artifacts
+        run: tar -czf release-assets.tar.gz output/
+
+      # 4. 创建Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 使用内置令牌
         with:
-          name: out
-          path: output/drivers/gpu/drm/panel/panel-truly-nt35597.ko.zst
+          tag_name: ${{ github.ref_name }} # 使用触发工作流的标签名
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }} # 如果标签包含-alpha或-beta，则标记为预发布
+
+      # 5. 上传打包好的文件到Release
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # 来自上一步的输出
+          asset_path: ./release-assets.tar.gz
+          asset_name: build-artifacts-${{ github.ref_name }}.tar.gz
+          asset_content_type: application/gzip
