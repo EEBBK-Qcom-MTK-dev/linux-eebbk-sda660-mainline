@@ -678,7 +678,7 @@
 };
 
 &sdhc_2 {
-	status = "okay";
+	status = "disabled";
 
 	vmmc-supply = <&vreg_l5b_2p95>;
 	vqmmc-supply = <&vreg_l2b_2p95>;
