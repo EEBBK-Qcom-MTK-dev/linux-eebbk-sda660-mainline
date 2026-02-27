@@ -44,8 +44,7 @@ jobs:
 
       - name: Upload Kernel Artifacts
         uses: actions/upload-artifact@v4
-          with:
+        with:
           name: kernel-artifacts
-          path: |
-          out.tar.xz
+          path: out.tar.xz
           if-no-files-found: error
