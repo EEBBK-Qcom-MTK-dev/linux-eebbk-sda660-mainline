@@ -31,9 +31,21 @@ jobs:
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
+      - name: Install modules
+        run: |
+          mkdir -p out/modules
+          make modules_install INSTALL_MOD_PATH=out/modules
 
-      - name: Upload kernel
+      - name: Package
+        run: |
+          cp output/.config out/
+          cp -r output/arch/arm64/boot out/
+          tar -Jcvf out.tar.xz out
+
+      - name: Upload Kernel Artifacts
         uses: actions/upload-artifact@v4
-        with:
-          name: image
-          path: output/arch/arm64/boot/Image.gz
+          with:
+          name: kernel-artifacts
+          path: |
+          out.tar.xz
+          if-no-files-found: error
