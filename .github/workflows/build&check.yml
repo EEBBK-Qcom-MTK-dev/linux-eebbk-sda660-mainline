@@ -37,7 +37,6 @@ jobs:
       - name: Package
         run: |
           cp .config out/
-          cp -r out out/
           cp -r arch/arm64/boot out/
           tar -Jcvf out.tar.xz out
 
