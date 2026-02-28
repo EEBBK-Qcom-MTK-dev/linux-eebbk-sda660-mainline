@@ -33,8 +33,10 @@ jobs:
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
       - name: Install modules
         run: |
-          mkdir -p output/modules        
-          make modules_install INSTALL_MOD_PATH=output/modules O=output
+          mkdir -p out/modules
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
+          make oldconfig && make prepare
+          make modules_install INSTALL_MOD_PATH=out/modules
 
       - name: Package
         run: |
