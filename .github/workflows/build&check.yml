@@ -28,8 +28,7 @@ jobs:
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
       - name: Compile kernel
         run: |
-          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 Image.gz
-          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2 modules
+          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
       - name: Install modules
         run: |
