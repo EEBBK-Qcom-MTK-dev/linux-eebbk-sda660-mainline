@@ -34,9 +34,7 @@ jobs:
       - name: Install modules
         run: |
           mkdir -p out/modules
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
-          make oldconfig && make prepare
-          make modules_install INSTALL_MOD_PATH=out/modules
+          make modules_install INSTALL_MOD_PATH=out/modules O=output
 
       - name: Package
         run: |
