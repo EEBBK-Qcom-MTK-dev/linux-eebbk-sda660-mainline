@@ -25,20 +25,20 @@ jobs:
           mkdir output
       - name: Prepare config
         run: |
-          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_defconfig
       - name: Compile kernel
         run: |
-          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
-          make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
       - name: Install modules
         run: |
           mkdir -p out/modules
-          make modules_install INSTALL_MOD_PATH=out/modules O=output
+          make modules_install INSTALL_MOD_PATH=out/modules
 
       - name: Package
         run: |
-          cp output/.config out/
-          cp -r output/arch/arm64/boot out/
+          cp .config out/
+          cp -r out out/
+          cp -r arch/arm64/boot out/
           tar -Jcvf out.tar.xz out
 
       - name: Upload Kernel Artifacts
