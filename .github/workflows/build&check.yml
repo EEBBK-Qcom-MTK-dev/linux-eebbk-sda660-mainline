@@ -33,8 +33,8 @@ jobs:
           make O=output ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
       - name: Install modules
         run: |
-          mkdir -p out/modules
-          make modules_install INSTALL_MOD_PATH=out/modules
+          mkdir -p output/modules        
+          make modules_install INSTALL_MOD_PATH=output/modules O=output
 
       - name: Package
         run: |
