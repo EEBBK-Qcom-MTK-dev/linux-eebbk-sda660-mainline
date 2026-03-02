@@ -681,7 +681,7 @@
 };
 
 &sdhc_2 {
-	status = "disabled"
+	status = "disabled";
 };
 
 &wifi {
