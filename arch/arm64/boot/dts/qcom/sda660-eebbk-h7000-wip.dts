@@ -36,7 +36,7 @@
 
 		framebuffer0: framebuffer@9d400000 {
 			compatible = "simple-framebuffer";
-			reg = <0 0x9d400000 0 (1600 * 2176 * 4)>;
+			reg = <0 0x9d400000 0 0x2400000>;
 			width = <1600>;
 			height = <2176>;
 			stride = <(1600 * 4)>;
@@ -178,62 +178,6 @@
 	};
 };
 
-&mdss {
-	status = "okay";
-};
-
-&mdss_dsi0 {
-	status = "okay";
-
-	#address-cells = <1>;
-	#size-cells = <0>;
-	vdd-supply = <&vreg_l1b_0p925>;
-	vdda-supply = <&vreg_l1a_1p225>;
-
-	panel: panel@0 {
-		compatible = "truly,nt35597-2K-display";
-		reg = <0>;
-		vdda-supply = <&vreg_l6b_3p3>;
-		vdispp-supply = <&lcdb_fixed>;
-		vdispn-supply = <&lcdb_fixed>;
-		pinctrl-names = "default", "suspend";
-		pinctrl-0 = <&mdss_dsi_active>;
-		pinctrl-1 = <&mdss_dsi_suspend>;
-
-		reset-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-		mode-gpios = <&tlmm 59 GPIO_ACTIVE_HIGH>;
-		ports {
-                    #address-cells = <1>;
-                    #size-cells = <0>;
-
-                    port@0 {
-                        reg = <0>;
-
-                        panel0_in: endpoint {
-                            remote-endpoint = <&mdss_dsi0_out>;
-                       };
-                    };
-
-                    port@1 {
-                        reg = <1>;
-
-                        panel1_in: endpoint {
-                            remote-endpoint = <&mdss_dsi1_out>;
-                        };
-                    };
-                };
-        };
-};
-
-&mdss_dsi0_out {
-	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel0_in>;
-};
-
-&mdss_dsi1_out {
-	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel1_in>;
-};
 &mmss_smmu {
 	status = "okay";
 };
@@ -611,34 +555,13 @@
                 function = "gpio";
                 drive-strength = <8>;
                 bias-pull-up;
-    };
+        };
 
 	ts_rst: ts-rst-state {
 		pins = "gpio66";
 		function = "gpio";
 		drive-strength = <8>;
 		bias-pull-up;
-	};
-	
-	mdss_dsi_active: mdss-dsi-active-state {
-		pins = "gpio53";
-		function = "gpio";
-		drive-strength = <8>;
-		bias-disable;
-	};
-
-        mdss_dsi_suspend: mdss-dsi-suspend-state {
-		pins = "gpio53";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-pull-down;
-	};
-		
-	mdss_te_active: mdss-te-active-state {
-	        pins = "gpio59";
-		function = "mdp_vsync";
-		drive-strength = <2>;
-		bias-pull-down;
 	};
 };
 
