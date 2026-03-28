@@ -582,6 +582,7 @@
 &sdhc_1 {
 	status = "okay";
 	bus-width = <8>;
+        det-gpio = <&tlmm 54 GPIO_ACTIVE_LOW>;
 
 	vmmc-supply = <&vreg_l4b_2p95>;
 	vqmmc-supply = <&vreg_l8a_1p8>;
@@ -590,6 +591,7 @@
 	mmc-hs200-1_8v;
 	mmc-hs400-1_8v;
 };
+
 &sdhc_2 {
 	status = "disabled";
 };
