@@ -118,7 +118,6 @@
 	};
         backlight: backlight {
 	        compatible = "pwm-backlight";
-                pwms = <&pm660l_pwm_4 0 0>;
 	        brightness-levels = <0 4095>;
 	        num-interpolated-steps = <4095>;
 	        default-brightness-level = <2048>;
