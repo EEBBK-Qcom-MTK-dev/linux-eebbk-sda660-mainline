@@ -198,6 +198,12 @@
 	remote-endpoint = <&panel_in>;
 };
 
+&mdss_dsi0_phy {
+	vcca-supply = <&vreg_l1b_0p925>;
+
+	status = "okay";
+};
+
 &pm660_charger {
 	monitored-battery = <&battery>;
 
