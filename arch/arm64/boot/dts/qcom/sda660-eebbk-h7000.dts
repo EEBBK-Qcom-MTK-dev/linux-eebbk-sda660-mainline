@@ -116,13 +116,6 @@
 			no-map;
 		};
 	};
-        backlight: backlight {
-	        compatible = "pwm-backlight";
-	        brightness-levels = <0 4095>;
-	        num-interpolated-steps = <4095>;
-	        default-brightness-level = <2048>;
-	        enable-gpios = <&pm660l_gpios 6 GPIO_ACTIVE_HIGH>;
-        };
 };
 
 &pm660l_gpios {
@@ -219,31 +212,6 @@
 	linux,code = <KEY_VOLUMEDOWN>;
 
 	status = "okay";
-};
-
-&mdss {
-	status = "okay";
-};
-
-&mdss_dsi0 {
-	panel@0 {
-		compatible = "mdss,nt35597-wqxga-truly";
-		reg = <0>;
-
-		backlight = <&backlight>;
-		reset-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-
-		port {
-			panel_in: endpoint {
-				remote-endpoint = <&mdss_dsi0_out>;
-			};
-		};
-	};
-};
-
-&mdss_dsi0_out {
-	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel_in>;
 };
 
 &qusb2phy0 {
@@ -585,20 +553,6 @@
 		function = "gpio";
 		drive-strength = <8>;
 		bias-pull-up;
-	};
-
-	mdss_reset_active: mdss-reset-active-state {
-		function = "gpio";
-		pins = "gpio53";
-		drive-strength = <8>;
-		bias-disable;
-	};
-
-	mdss_reset_sleep: mdss-reset-sleep-state {
-		pins = "gpio53";
-		function = "gpio";
-		drive-strength = <2>;
-		bias-pull-down;
 	};
 };
 
