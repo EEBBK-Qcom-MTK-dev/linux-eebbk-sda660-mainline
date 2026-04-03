@@ -116,6 +116,14 @@
 			no-map;
 		};
 	};
+        backlight: backlight {
+	        compatible = "pwm-backlight";
+	        pwms = <&pm660l_pwm 0 200000>;  /* 200Hz */
+	        brightness-levels = <0 4095>;
+	        num-interpolated-steps = <4095>;
+	        default-brightness-level = <2048>;
+	        enable-gpios = <&pm660l_gpios 6 GPIO_ACTIVE_HIGH>;
+        };
 };
 
 &pm660l_gpios {
@@ -237,15 +245,6 @@
 &mdss_dsi0_out {
 	data-lanes = <0 1 2 3>;
 	remote-endpoint = <&panel_in>;
-};
-
-backlight: backlight {
-	compatible = "pwm-backlight";
-	pwms = <&pm660l_pwm 0 200000>;  /* 200Hz */
-	brightness-levels = <0 4095>;
-	num-interpolated-steps = <4095>;
-	default-brightness-level = <2048>;
-	enable-gpios = <&pm660l_gpios 6 GPIO_ACTIVE_HIGH>;
 };
 
 &qusb2phy0 {
