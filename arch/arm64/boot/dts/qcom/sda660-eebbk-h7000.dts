@@ -253,7 +253,7 @@
 		};
 
 		vreg_s2b_1p05: s2 {
-			regulator-min-microvolt = <1045000>;
+			regulator-min-microvolt = <1050000>;
 			regulator-max-microvolt = <1050000>;
 			regulator-enable-ramp-delay = <200>;
 			regulator-ramp-delay = <0>;
