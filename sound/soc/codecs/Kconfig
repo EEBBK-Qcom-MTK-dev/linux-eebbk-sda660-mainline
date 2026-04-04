@@ -2214,6 +2214,11 @@ config SND_SOC_TFA989X
 	  amplifiers, e.g. TFA9895.
 	  Note that the driver currently bypasses the built-in "CoolFlux DSP"
 	  and does not support (hardware) volume control.
+	  
+config SND_SOC_TFA98XX
+	tristate "NXP/Goodix TFA98XX amplifiers"
+	depends on I2C
+	select REGMAP_I2C
 
 config SND_SOC_TLV320ADC3XXX
 	tristate "Texas Instruments TLV320ADC3001/3101 audio ADC"
