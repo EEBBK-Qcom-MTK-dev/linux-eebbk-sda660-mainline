@@ -163,7 +163,7 @@
 	status = "okay";
 
 	audio1: codec@34 {
-		compatible = "nxp,tfa9872";
+		compatible = "nxp,tfa98xx";
 		reg = <0x34>;
 
 		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
@@ -176,7 +176,7 @@
 	};
 
 	audio2: codec@35 {
-		compatible = "nxp,tfa9872";
+		compatible = "nxp,tfa98xx";
 		reg = <0x35>;
 
 		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
