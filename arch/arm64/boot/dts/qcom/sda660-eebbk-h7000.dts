@@ -700,7 +700,10 @@
 &lpass_codec {
 	status = "okay";
 };
+
 &pm660l_codec {
+	vdd-cdc-io-supply = <&vreg_s4a_2p04>;
+	vdd-cdc-tx-rx-cx-supply = <&vreg_s4a_2p04>;
 	vdd-micbias-supply = <&vreg_l7b_3p125>;
 
 	qcom,micbias-lvl = <2600>;
