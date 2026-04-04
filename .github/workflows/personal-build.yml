@@ -25,6 +25,9 @@ jobs:
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig sdm660_defconfig
       - name: Compile kernel
         run: |
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- prepare -j2
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_prepare -j2
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- M=sound/soc/codecs/tfa98xx-downstream modules -j2
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
       - name: Install modules
         run: |
