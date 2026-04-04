@@ -25,10 +25,6 @@ jobs:
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig sdm660_defconfig
       - name: Compile kernel
         run: |
-          # only make modules
-          # start
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules -j2
-          # make all
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
           
       - name: Install modules
