@@ -201,7 +201,7 @@
 &mdss_dsi0_phy {
 	vcca-supply = <&vreg_l1b_0p925>;
 
-	status = "okay";
+	status = "disabled";
 };
 
 &pm660_charger {
