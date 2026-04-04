@@ -3014,8 +3014,8 @@ static struct bin_attribute dev_attr_rw = {
 		.mode = S_IRUSR | S_IWUSR,
 	},
 	.size = 0,
-	.read_new = tfa98xx_rw_read,
-	.write_new = tfa98xx_rw_write,
+	.read = tfa98xx_rw_read,
+	.write = tfa98xx_rw_write,
 };
 
 static struct bin_attribute dev_attr_reg = {
@@ -3025,7 +3025,7 @@ static struct bin_attribute dev_attr_reg = {
 	},
 	.size = 0,
 	.read = NULL,
-	.write_new = tfa98xx_reg_write,
+	.write = tfa98xx_reg_write,
 };
 
 static int tfa98xx_i2c_probe(struct i2c_client *i2c)

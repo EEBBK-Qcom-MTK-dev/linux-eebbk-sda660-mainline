@@ -1035,7 +1035,7 @@ static int tfa98xx_get_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1068,7 +1068,7 @@ static int tfa98xx_set_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1152,7 +1152,7 @@ static int tfa98xx_info_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_info *uinfo)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1191,7 +1191,7 @@ static int tfa98xx_set_profile(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
