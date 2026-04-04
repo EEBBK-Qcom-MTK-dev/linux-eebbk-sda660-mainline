@@ -156,6 +156,37 @@
 	};
 };
 
+&blsp_i2c2 {
+	/*clock-frequency = <100000>;*/
+	status = "okay";
+
+	tfa98xx: codec@34 {
+		compatible = "nxp,tfa9872";
+		reg = <0x34>;
+
+		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+		irq-gpio = <&tlmm 30 GPIO_ACTIVE_HIGH>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&tfa_reset &tfa_int_1>;
+
+		#sound-dai-cells = <0>;
+	};
+	tfa98xx: codec@35 {
+		compatible = "nxp,tfa9872";
+		reg = <0x35>;
+
+		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+		irq-gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&tfa_reset &tfa_int_2>;
+
+		#sound-dai-cells = <0>;
+	};
+};
+
+
 &blsp2_uart1 {
 	status = "okay";
 
@@ -561,6 +592,33 @@
 		function = "gpio";
 		drive-strength = <8>;
 		bias-pull-up;
+	};
+
+	tfa_reset: tfa-reset-state {
+		pins = "gpio12";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+		bias-pull-down;
+		output-low;
+	};
+
+	tfa_int_1: tfa-int-1-state {
+		pins = "gpio30";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-up;
+		bias-disable;
+		input-enable;
+	};
+
+	tfa_int_2: tfa-int-1-state {
+		pins = "gpio31";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-up;
+		bias-disable;
+		input-enable;
 	};
 };
 
