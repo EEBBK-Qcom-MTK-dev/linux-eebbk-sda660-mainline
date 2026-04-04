@@ -165,6 +165,8 @@
 	audio1: codec@34 {
 		compatible = "nxp,tfa98xx";
 		reg = <0x34>;
+		interrupts = <30 0>;
+		interrupt-names = "nxp_r_irq";
 
 		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
 		irq-gpio = <&tlmm 30 GPIO_ACTIVE_HIGH>;
@@ -178,6 +180,8 @@
 	audio2: codec@35 {
 		compatible = "nxp,tfa98xx";
 		reg = <0x35>;
+		interrupts = <31 0>;
+		interrupt-names = "nxp_l_irq";
 
 		reset-gpio = <&tlmm 12 GPIO_ACTIVE_HIGH>;
 		irq-gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
