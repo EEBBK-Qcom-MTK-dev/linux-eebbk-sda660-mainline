@@ -162,7 +162,7 @@
 	/*clock-frequency = <100000>;*/
 	status = "okay";
 
-	tfa98xx: codec@34 {
+	audio1: codec@34 {
 		compatible = "nxp,tfa9872";
 		reg = <0x34>;
 
@@ -174,7 +174,8 @@
 
 		#sound-dai-cells = <0>;
 	};
-	tfa98xx: codec@35 {
+
+	audio2: codec@35 {
 		compatible = "nxp,tfa9872";
 		reg = <0x35>;
 
