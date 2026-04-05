@@ -4,7 +4,7 @@ on:
     types: [opened, synchronize, reopened]
   push:
     branches:
-      - *.y
+      - setotau/qcom-sdm660-6.19.y
     tags:
       - v*-sdm660
 jobs:
