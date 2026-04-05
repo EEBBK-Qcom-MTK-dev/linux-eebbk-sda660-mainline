@@ -237,6 +237,9 @@
 };
 
 &mdss_dsi0 {
+	vdd-supply = <&vreg_l1b_0p925>;
+	vdda-supply = <&vreg_l1a_1p225>;
+
 	panel@0 {
 		compatible = "mdss,nt35597-wqxga-truly";
 		reg = <0>;
