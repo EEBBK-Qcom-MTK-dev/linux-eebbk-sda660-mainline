@@ -232,12 +232,16 @@
 	status = "okay";
 };
 
+&mdss {
+    status = "okay";
+};
+
 &mdss_dsi0 {
 	panel@0 {
 		compatible = "mdss,nt35597-wqxga-truly";
 		reg = <0>;
 
-		backlight = <&backlight>;
+		backlight = <&pm660l_wled>;
 		reset-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
 
 		port {
