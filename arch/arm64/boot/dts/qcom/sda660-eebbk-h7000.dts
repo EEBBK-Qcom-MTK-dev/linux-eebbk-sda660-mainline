@@ -249,8 +249,8 @@
 
                     panel_lvds0_in: endpoint {
                           remote-endpoint = <&mdss_dsi0_out>;
-                     };
-               };
+                };
+             };
 
                  port@1 {
                     dual-lvds-even-pixels;
@@ -258,9 +258,10 @@
 
                     panel_lvds1_in: endpoint {
                          remote-endpoint = <&mdss_dsi1_out>;
-                      };
                 };
+            };
 	};
+    };
 };
 
 &mdss_dsi0_out {
