@@ -1594,6 +1594,33 @@ static const struct panel_desc boe_hv070wsa = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
+static const struct drm_display_mode boe_tv110xum_lbo_1sp0_mode = {
+	.clock = (800 + 25 + 14 + 25) * (2176 + 250 + 8 + 73) * 60 / 1000,
+	.hdisplay = 800,
+	.hsync_start = 800 + 25,
+	.hsync_end = 800 + 25 + 14,
+	.htotal = 800 + 25 + 14 + 25,
+	.vdisplay = 2176,
+	.vsync_start = 2176 + 250,
+	.vsync_end = 2176 + 250 + 8,
+	.vtotal = 2176 + 250 + 8 + 73,
+};
+
+static const struct panel_desc_dsi boe_tv110xum_lbo_1sp0 = {
+	.modes = &boe_tv110xum_lbo_1sp0_mode,
+	.num_modes = 1,
+	.bpc = 8,
+	.size = {
+		.width = 147,
+		.height = 197,
+	},
+	.connector_type = DRM_MODE_CONNECTOR_DSI,
+	.bus_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+		 MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
+	.bus_format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};
+
 static const struct display_timing cct_cmt430b19n00_timing = {
 	.pixelclock = { 8000000, 9000000, 12000000 },
 	.hactive = { 480, 480, 480 },
@@ -5142,6 +5169,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "boe,hv070wsa-100",
 		.data = &boe_hv070wsa
+	}, {
+		.compatible = "boe,boe_tv110xum_lbo_1sp0",
+		.data = &boe_tv110xum_lbo_1sp0
 	}, {
 		.compatible = "cct,cmt430b19n00",
 		.data = &cct_cmt430b19n00,
