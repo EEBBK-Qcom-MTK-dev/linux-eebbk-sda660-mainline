@@ -266,12 +266,12 @@
 
 &mdss_dsi0_out {
 	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel_in>;
+	remote-endpoint = <&panel_lvds0_in>;
 };
 
 &mdss_dsi1_out {
 	data-lanes = <0 1 2 3>;
-	remote-endpoint = <&panel_in>;
+	remote-endpoint = <&panel_lvds1_in>;
 };
 
 &mdss_dsi0_phy {
