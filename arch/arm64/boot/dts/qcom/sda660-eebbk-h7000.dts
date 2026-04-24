@@ -78,6 +78,19 @@
 		};
 	};
 
+        lcdb_fixed: lcdb-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "lcdb";
+		/*
+		 * Actual range for LCDB is 4.0 - 6.0V, but
+		 * stock bootloader sets voltage to 5.4 V
+		 */
+		regulator-min-microvolt = <5400000>;
+		regulator-max-microvolt = <5400000>;
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
 	reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -193,7 +206,6 @@
 	};
 };
 
-
 &blsp2_uart1 {
 	status = "okay";
 
@@ -205,6 +217,69 @@
 		vddio-supply = <&vreg_l13a_1p8>;
 		max-speed = <3200000>;
 	};
+};
+
+&mdss {
+	status = "okay";
+};
+
+&mdss_dsi0 {
+	status = "okay";
+
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	vdd-supply = <&vreg_l1b_0p925>;
+	vdda-supply = <&vreg_l1a_1p225>;
+	
+	panel@0 {
+		compatible = "boe,tv110xum-lbo-1sp0";
+		reg = <0>;
+		backlight = <&pm660l_wled>;
+		enable-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
+        power-supply = <&lcdb_fixed>;
+        
+        ports {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        port@0 {
+            dual-lvds-odd-pixels;
+            reg = <0>;
+
+            panel_lvds0_in: endpoint {
+                remote-endpoint = <&mdss_dsi0_out>;
+            };
+        };
+
+        port@1 {
+            dual-lvds-even-pixels;
+            reg = <1>;
+
+            panel_lvds1_in: endpoint {
+                remote-endpoint = <&mdss_dsi1_out>;
+            };
+        };
+	};
+};
+
+&mdss_dsi0_out {
+	data-lanes = <0 1 2 3>;
+	remote-endpoint = <&panel_in>;
+};
+
+&mdss_dsi1_out {
+	data-lanes = <0 1 2 3>;
+	remote-endpoint = <&panel_in>;
+};
+
+&mdss_dsi0_phy {
+	vcca-supply = <&vreg_l1b_0p925>;
+	status = "okay";
+};
+&mdss_dsi1_phy {
+	vcca-supply = <&vreg_l1b_0p925>;
+	status = "okay";
 };
 
 &mmss_smmu {
