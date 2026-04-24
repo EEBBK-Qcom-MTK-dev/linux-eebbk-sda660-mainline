@@ -1618,7 +1618,6 @@ static const struct panel_desc boe_tv110xum_lbo_1sp0 = {
 	.bus_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
 		 MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
 	.bus_format = MIPI_DSI_FMT_RGB888,
-	.lanes = 4,
 };
 
 static const struct display_timing cct_cmt430b19n00_timing = {
