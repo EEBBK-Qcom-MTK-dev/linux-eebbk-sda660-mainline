@@ -211,6 +211,12 @@
 	status = "okay";
 };
 
+&remoteproc_mss {
+	firmware-name = "mba.mbn", "modem.mdt";
+
+	status = "okay";
+};
+
 &pm660_charger {
 	monitored-battery = <&battery>;
 
