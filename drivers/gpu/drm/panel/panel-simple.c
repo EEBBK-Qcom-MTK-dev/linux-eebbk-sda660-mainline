@@ -1606,7 +1606,7 @@ static const struct drm_display_mode boe_tv110xum_lbo_1sp0_mode = {
 	.vtotal = 2176 + 250 + 8 + 73,
 };
 
-static const struct panel_desc_dsi boe_tv110xum_lbo_1sp0 = {
+static const struct panel_desc boe_tv110xum_lbo_1sp0 = {
 	.modes = &boe_tv110xum_lbo_1sp0_mode,
 	.num_modes = 1,
 	.bpc = 8,
