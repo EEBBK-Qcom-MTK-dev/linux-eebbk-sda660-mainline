@@ -237,29 +237,29 @@
 		reg = <0>;
 		backlight = <&pm660l_wled>;
 		enable-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-        power-supply = <&lcdb_fixed>;
+                power-supply = <&lcdb_fixed>;
         
-        ports {
-        #address-cells = <1>;
-        #size-cells = <0>;
+                ports {
+                #address-cells = <1>;
+                #size-cells = <0>;
 
-        port@0 {
-            dual-lvds-odd-pixels;
-            reg = <0>;
+                 port@0 {
+                    dual-lvds-odd-pixels;
+                    reg = <0>;
 
-            panel_lvds0_in: endpoint {
-                remote-endpoint = <&mdss_dsi0_out>;
-            };
-        };
+                    panel_lvds0_in: endpoint {
+                          remote-endpoint = <&mdss_dsi0_out>;
+                     };
+               };
 
-        port@1 {
-            dual-lvds-even-pixels;
-            reg = <1>;
+                 port@1 {
+                    dual-lvds-even-pixels;
+                    reg = <1>;
 
-            panel_lvds1_in: endpoint {
-                remote-endpoint = <&mdss_dsi1_out>;
-            };
-        };
+                    panel_lvds1_in: endpoint {
+                         remote-endpoint = <&mdss_dsi1_out>;
+                      };
+                };
 	};
 };
 
