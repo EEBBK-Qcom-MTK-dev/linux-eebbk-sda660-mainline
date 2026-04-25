@@ -39,7 +39,7 @@ jobs:
       - name: Compile DTBs
         run: |
           make O=build-dtbs-check ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
-            - name: Upload DTBs
+      - name: Upload DTBs
         uses: actions/upload-artifact@v4
         with:
           name: DTBs
