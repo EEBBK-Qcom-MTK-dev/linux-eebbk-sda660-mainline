@@ -7,6 +7,7 @@
 #include <linux/gpio/consumer.h>
 #include <linux/mod_devicetable.h>
 #include <linux/module.h>
+#include <linux/regulator/consumer.h>
 
 #include <video/mipi_display.h>
 
@@ -18,13 +19,20 @@
 struct nt35597_wqxga_truly {
 	struct drm_panel panel;
 	struct mipi_dsi_device *dsi;
+	struct regulator_bulk_data *supplies;
 	struct gpio_desc *reset_gpio;
+};
+
+static const struct regulator_bulk_data nt35597_wqxga_truly_supplies[] = {
+	{ .supply = "vddio" },
+	{ .supply = "vddneg" },
+	{ .supply = "vddpos" },
 };
 
 static inline
 struct nt35597_wqxga_truly *to_nt35597_wqxga_truly(struct drm_panel *panel)
 {
-	return container_of(panel, struct nt35597_wqxga_truly, panel);
+	return container_of_const(panel, struct nt35597_wqxga_truly, panel);
 }
 
 static void nt35597_wqxga_truly_reset(struct nt35597_wqxga_truly *ctx)
@@ -43,12 +51,12 @@ static int nt35597_wqxga_truly_on(struct nt35597_wqxga_truly *ctx)
 
 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
 	mipi_dsi_msleep(&dsi_ctx, 120);
-	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x5a, 0x0e, 0x00, 0x00);
+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x5a, 0x0e);
 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x83, 0xac, 0xb6, 0x6d);
 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x5a, 0x19);
 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80,
 				     0x92, 0x8e, 0x8c, 0x8a, 0x88, 0x87, 0x86,
-				     0x84, 0x83, 0x82, 0x81, 0x81, 0x00, 0x50,
+				     0x84, 0x83, 0x82, 0x81, 0x81, 0x55, 0x55,
 				     0xf6, 0x2f);
 	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90,
 				     0xf3, 0xff, 0xff, 0xef, 0xbf, 0x7f, 0x0f);
@@ -81,12 +89,19 @@ static int nt35597_wqxga_truly_prepare(struct drm_panel *panel)
 	struct device *dev = &ctx->dsi->dev;
 	int ret;
 
+	ret = regulator_bulk_enable(ARRAY_SIZE(nt35597_wqxga_truly_supplies), ctx->supplies);
+	if (ret < 0) {
+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+		return ret;
+	}
+
 	nt35597_wqxga_truly_reset(ctx);
 
 	ret = nt35597_wqxga_truly_on(ctx);
 	if (ret < 0) {
 		dev_err(dev, "Failed to initialize panel: %d\n", ret);
 		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+		regulator_bulk_disable(ARRAY_SIZE(nt35597_wqxga_truly_supplies), ctx->supplies);
 		return ret;
 	}
 
@@ -104,6 +119,7 @@ static int nt35597_wqxga_truly_unprepare(struct drm_panel *panel)
 		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
 
 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+	regulator_bulk_disable(ARRAY_SIZE(nt35597_wqxga_truly_supplies), ctx->supplies);
 
 	return 0;
 }
@@ -146,6 +162,13 @@ static int nt35597_wqxga_truly_probe(struct mipi_dsi_device *dsi)
 				   DRM_MODE_CONNECTOR_DSI);
 	if (IS_ERR(ctx))
 		return PTR_ERR(ctx);
+
+	ret = devm_regulator_bulk_get_const(dev,
+					    ARRAY_SIZE(nt35597_wqxga_truly_supplies),
+					    nt35597_wqxga_truly_supplies,
+					    &ctx->supplies);
+	if (ret < 0)
+		return ret;
 
 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
 	if (IS_ERR(ctx->reset_gpio))
