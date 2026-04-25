@@ -26,15 +26,13 @@
 
 	aliases {
 		serial0 = &blsp1_uart2;
-        serial1 = &blsp2_uart1; /* Bluetooth UART */
+                serial1 = &blsp2_uart1; /* Bluetooth UART */
 	};
 
 	chosen {
 		#address-cells = <2>;
 		#size-cells = <2>;
 		ranges;
-
-		bootargs = "clk_ignore_unused pd_ignore_unused";
 
 		framebuffer0: framebuffer@9d400000 {
 			compatible = "simple-framebuffer";
