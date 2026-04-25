@@ -39,6 +39,12 @@ jobs:
       - name: Compile DTBs
         run: |
           make O=build-dtbs-check ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- dtbs
+            - name: Upload DTBs
+        uses: actions/upload-artifact@v4
+        with:
+          name: DTBs
+          path:
+             build-dtbs-check/arch/arm64/boot/dts/qcom/*.dtb
       - name: Create venv
         run: |
           python3 -m venv venv_dtschema
@@ -74,9 +80,3 @@ jobs:
         continue-on-error: true
         run: |
           python3 .github/workflows/analyze_dtbs_check.py build-dtbs-check/results.txt
-      - name: Upload DTBs
-        uses: actions/upload-artifact@v4
-        with:
-          name: DTBs
-          path:
-             build-dtbs-check/arch/arm64/boot/dts/qcom/*.dtb
