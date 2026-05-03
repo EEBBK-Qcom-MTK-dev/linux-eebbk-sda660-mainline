@@ -1,0 +1,71 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+* Copyright (c) 2025, XiKoTaSu <3329989998@qq.com>
+*/
+
+/dts-v1/;
+
+#include "sdm660-oppo-common.dtsi"
+
+/ {
+	model = "OPPO R11";
+	compatible = "oppo,r11", "qcom,sdm660";
+	chassis-type = "handset";
+
+	aliases {
+		serial0 = &blsp1_uart2;
+        serial1 = &blsp2_uart1; /* Bluetooth UART */
+	};
+
+	chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		/* stdout-path = "serial0:115200n8"; */
+
+		framebuffer0: framebuffer@9d400000 {
+			compatible = "simple-framebuffer";
+			reg = <0 0x9d400000 0 0x23000000>;
+			width = <1080>;
+			height = <1920>;
+			stride = <(1080 * 4)>;
+			format = "a8r8g8b8";
+		};
+	};
+};
+
+&panel {
+	compatible = "samsung,s6e3fa3";
+	vdda-supply = <&vreg_s4a_2p04>;
+
+	enable-gpios = <&tlmm 53 0>;
+	disp-te-gpios = <&tlmm 59 0>;
+};
+
+&synaptics_touchscreen {
+	rmi4-f1a@1a {
+		reg = <0x1a>;
+		linux,keycodes = <KEY_BACK KEY_HOME KEY_MENU>;
+	};
+	rmi4-f12@12 {
+		reg = <0x12>;
+		syna,sensor-type = <1>;
+		syna,rezero-wait-ms = <200>;
+		syna,clip-x-low = <0>;
+		syna,clip-x-high = <1080>;
+	    syna,clip-y-low = <0>;
+		syna,clip-y-high = <1920>;
+	};
+};
+
+&blsp_i2c6 {
+    status = "okay";
+    audio-codec@36 {
+        compatible = "nxp,tfa9890";
+        reg = <0x36>;
+        sound-name-prefix = "Speaker Right";
+        vddd-supply = <&vreg_l13a_1p8>;
+        #sound-dai-cells = <0>;
+    };
+};
