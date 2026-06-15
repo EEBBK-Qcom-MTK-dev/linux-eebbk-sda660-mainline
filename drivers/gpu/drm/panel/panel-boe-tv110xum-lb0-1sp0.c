@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
- * Novatek NT35597 DriverIC panels driver
+ * BOE TV110XUM-LB0-1SP0 panels driver
  */
 
 #include <linux/backlight.h>
@@ -104,7 +104,7 @@ static const struct panel_desc h7000_boe_desc = {
 	.init_sequence = h7000_boe_init_sequence,
 };
 
-static int nt35597_prepare(struct drm_panel *panel)
+static int boe_tv110xum_lb0_1sp0_prepare(struct drm_panel *panel)
 {
 	struct panel_info *pinfo = to_panel_info(panel);
 	int ret;
@@ -125,7 +125,7 @@ static int nt35597_prepare(struct drm_panel *panel)
 	return 0;
 }
 
-static int nt35597_disable(struct drm_panel *panel)
+static int boe_tv110xum_lb0_1sp0_disable(struct drm_panel *panel)
 {
 	struct panel_info *pinfo = to_panel_info(panel);
 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi[0]};
@@ -137,7 +137,7 @@ static int nt35597_disable(struct drm_panel *panel)
 	return 0;
 }
 
-static int nt35597_unprepare(struct drm_panel *panel)
+static int boe_tv110xum_lb0_1sp0_unprepare(struct drm_panel *panel)
 {
 	struct panel_info *pinfo = to_panel_info(panel);
 
@@ -145,14 +145,14 @@ static int nt35597_unprepare(struct drm_panel *panel)
 	return 0;
 }
 
-static void nt35597_remove(struct mipi_dsi_device *dsi)
+static void boe_tv110xum_lb0_1sp0_remove(struct mipi_dsi_device *dsi)
 {
 	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
 
 	drm_panel_remove(&pinfo->panel);
 }
 
-static int nt35597_get_modes(struct drm_panel *panel,
+static int boe_tv110xum_lb0_1sp0_get_modes(struct drm_panel *panel,
 			       struct drm_connector *connector)
 {
 	struct panel_info *pinfo = to_panel_info(panel);
@@ -184,14 +184,14 @@ static int nt35597_get_modes(struct drm_panel *panel,
 	return pinfo->desc->num_modes;
 }
 
-static const struct drm_panel_funcs nt35597_panel_funcs = {
-	.disable = nt35597_disable,
-	.prepare = nt35597_prepare,
-	.unprepare = nt35597_unprepare,
-	.get_modes = nt35597_get_modes,
+static const struct drm_panel_funcs boe_tv110xum_lb0_1sp0_panel_funcs = {
+	.disable = boe_tv110xum_lb0_1sp0_disable,
+	.prepare = boe_tv110xum_lb0_1sp0_prepare,
+	.unprepare = boe_tv110xum_lb0_1sp0_unprepare,
+	.get_modes = boe_tv110xum_lb0_1sp0_get_modes,
 };
 
-static int nt35597_probe(struct mipi_dsi_device *dsi)
+static int boe_tv110xum_lb0_1sp0_probe(struct mipi_dsi_device *dsi)
 {
 	struct device *dev = &dsi->dev;
 	struct device_node *dsi1;
@@ -201,7 +201,7 @@ static int nt35597_probe(struct mipi_dsi_device *dsi)
 	int i, ret;
 
 	pinfo = devm_drm_panel_alloc(dev, struct panel_info, panel,
-				     &nt35597_panel_funcs,
+				     &boe_tv110xum_lb0_1sp0_panel_funcs,
 				     DRM_MODE_CONNECTOR_DSI);
 	if (IS_ERR(pinfo))
 		return PTR_ERR(pinfo);
@@ -257,25 +257,25 @@ static int nt35597_probe(struct mipi_dsi_device *dsi)
 	return 0;
 }
 
-static const struct of_device_id nt35597_of_match[] = {
+static const struct of_device_id boe_tv110xum_lb0_1sp0_of_match[] = {
 	{
-		.compatible = "eebbk,h7000-boe-nt35597",
+		.compatible = "eebbk,h7000-boe-tv110xum-lb0-1sp0",
 		.data = &h7000_boe_desc,
 	},
 	{},
 };
-MODULE_DEVICE_TABLE(of, nt35597_of_match);
+MODULE_DEVICE_TABLE(of, boe_tv110xum_lb0_1sp0_of_match);
 
-static struct mipi_dsi_driver nt35597_driver = {
-	.probe = nt35597_probe,
-	.remove = nt35597_remove,
+static struct mipi_dsi_driver boe_tv110xum_lb0_1sp0_driver = {
+	.probe = boe_tv110xum_lb0_1sp0_probe,
+	.remove = boe_tv110xum_lb0_1sp0_remove,
 	.driver = {
-		.name = "panel-novatek-nt35597",
-		.of_match_table = nt35597_of_match,
+		.name = "panel-novatek-boe_tv110xum_lb0_1sp0",
+		.of_match_table = boe_tv110xum_lb0_1sp0_of_match,
 	},
 };
-module_mipi_dsi_driver(nt35597_driver);
+module_mipi_dsi_driver(boe_tv110xum_lb0_1sp0_driver);
 
 MODULE_AUTHOR("");
-MODULE_DESCRIPTION("DRM driver for Novatek NT35597 based MIPI DSI panels");
+MODULE_DESCRIPTION("DRM driver for BOE TV110XUM-LB0-1SP0 based MIPI DSI panels");
 MODULE_LICENSE("GPL");
