@@ -690,7 +690,7 @@
 };
 
 &pm660_typec {
-	status = "okay";
+	status = "disabled"; /* Why use it? It is micro usb. */
 
 	connector {
 		compatible = "usb-c-connector";
