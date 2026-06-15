@@ -636,6 +636,14 @@
 	status = "okay";
 };
 
+&sdhc_2 {
+	cd-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
+	vmmc-supply = <&vreg_l5b_2p95>;
+	vqmmc-supply = <&vreg_l2b_2p95>;
+
+	status = "disabled";/* H7000 doesn't have any SD card */
+};
+
 &tlmm {
 	gpio-reserved-ranges = <8 4>;
 
