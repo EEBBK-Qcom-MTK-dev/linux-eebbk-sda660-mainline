@@ -4,7 +4,7 @@ on:
     types: [opened, synchronize, reopened]
   push:
     branches:
-      - qcom-sdm660-*
+      - EEBBK-*
     tags:
       - v*-sdm660
 jobs:
