@@ -173,27 +173,27 @@
 };
 
 &adreno_gpu_zap {
-	// firmware-name = "a512_zap.mdt"; /*If load it,device will reboot.*/
+	firmware-name = "a512_zap.mdt"; /*If load it,device will reboot.*/
 	memory-region = <&zap_shader_region>;
 };
 
-&adsp_pil {
+/*&adsp_pil {
 	firmware-name = "qcom/adsp.mdt";
-};
+};*/
 
 &remoteproc_mss {
 	firmware-name = "mba.mbn", "modem.mdt";
 	status = "okay";
 };
 
-&remoteproc_cdsp {
+/*&remoteproc_cdsp {
 	firmware-name = "qcom/cdsp.mdt";
 	status = "okay";
-};
+};*/
 
 &venus {
-	firmware-name = "qcom/venus-4.4/venus.mdt";
-	// status = "okay"; /* If load it,device will reboot. */
+	// firmware-name = "qcom/venus-4.4/venus.mdt"; /* If load it,device will reboot. */
+	status = "okay";
 };
 
 &blsp_i2c1 {
