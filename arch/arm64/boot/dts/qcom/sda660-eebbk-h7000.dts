@@ -18,6 +18,11 @@
 #include <dt-bindings/sound/qcom,q6asm.h>
 #include <dt-bindings/phy/phy.h>
 
+/delete-node/ &adsp_region;
+/delete-node/ &cdsp_region;
+/delete-node/ &mba_region;
+/delete-node/ &zap_shader_region;
+
 / {
 	model = "EEBBK S5";
 	compatible = "eebbk,h7000", "qcom,sda660";
