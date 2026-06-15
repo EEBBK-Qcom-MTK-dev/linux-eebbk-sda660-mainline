@@ -18,8 +18,6 @@
 	model = "EEBBK S5";
 	compatible = "eebbk,h7000", "qcom,sda660";
 	chassis-type = "tablet";
-	qcom,msm-id = <0x144 0x00>;
-	qcom,board-id = <0x08 0x00>;
 
 	aliases {
 		serial0 = &blsp1_uart2; /* Debug UART */
@@ -75,13 +73,45 @@
 		regulator-boot-on;
 	};
 
-	backlight: backlight {
-		compatible = "pwm-backlight";
-		pwms = <&pm660l_lpg 3 65536>;
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
 
-		brightness-levels = <0 255>;
-		num-interpolated-steps = <255>;
-		default-brightness-level = <100>;
+		ramoops@a0119000 {
+			compatible = "ramoops";
+			reg = <0x0 0xa0119000 0x0 0xe0000>;
+			console-size = <0x10000>;
+			record-size = <0x1000>;
+			ftrace-size = <0x1000>;
+			pmsg-size = <0x10000>;
+		};
+
+		framebuffer_memory@9d400000 {
+			reg = <0x0 0x9d400000 0x0 0x2400000>;
+			no-map;
+		};
+		
+		adsp_region: adsp@92a00000 {
+			reg = <0x0 0x92a00000 0x0 0x1e00000>;
+			no-map;
+		};
+
+		mba_region: mba@94800000 {
+			reg = <0x0 0x94800000 0x0 0x200000>;
+			no-map;
+		};
+
+		cdsp_region: cdsp@94b00000 {
+			reg = <0x00 0x94b00000 0x00 0x600000>;
+			no-map;
+		};
+		
+		zap_shader_region: gpu@fa800000 {
+			compatible = "shared-dma-pool";
+			reg = <0x0 0xfe700000 0x0 0x2000>;
+			no-map;
+		};
 	};
 };
 
@@ -197,7 +227,7 @@
 		compatible = "eebbk,h7000-boe-nt35597", "novatek,nt35597";
 		reg = <0>;
 		vddio-supply = <&vreg_l11a_1p8>;
-		backlight = <&backlight>;
+		backlight = <&pm660l_wled>;
 
 		ports {
 			#address-cells = <1>;
@@ -281,6 +311,13 @@
 		input-enable;
 		qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
 	};
+};
+&pm660l_wled {
+	qcom,switching-freq = <800>;
+	qcom,current-limit-microamp = <20000>;
+	qcom,num-strings = <2>;
+
+	status = "okay";
 };
 
 &pm660l_flash {
