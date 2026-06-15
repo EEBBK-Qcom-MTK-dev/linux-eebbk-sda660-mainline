@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
+/*
+* Copyright (c) 2025-2026, XiKoTaSu <3329989998@qq.com>
+*/
 
 /dts-v1/;
 
@@ -154,26 +157,27 @@
 };
 
 &adreno_gpu_zap {
+	// firmware-name = "a512_zap.mdt"; /*If load it,device will reboot.*/
 	memory-region = <&zap_shader_region>;
 };
 
 &adsp_pil {
-	firmware-name = "qcom/sdm660/eebbk/h7000/adsp.mdt";
+	firmware-name = "qcom/adsp.mdt";
 };
 
 &remoteproc_mss {
-	firmware-name = "qcom/sdm660/eebbk/h7000/mba.mbn", "qcom/sdm660/eebbk/h7000/modem.mdt";
+	firmware-name = "mba.mbn", "modem.mdt";
 	status = "okay";
 };
 
 &remoteproc_cdsp {
-	firmware-name = "qcom/sdm660/eebbk/h7000/cdsp.mdt";
+	firmware-name = "qcom/cdsp.mdt";
 	status = "okay";
 };
 
 &venus {
 	firmware-name = "qcom/venus-4.4/venus.mdt";
-	// status = "okay";
+	// status = "okay"; /* If load it,device will reboot. */
 };
 
 &blsp_i2c1 {
