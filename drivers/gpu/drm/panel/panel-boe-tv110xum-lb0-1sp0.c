@@ -270,7 +270,7 @@ static struct mipi_dsi_driver boe_tv110xum_lb0_1sp0_driver = {
 	.probe = boe_tv110xum_lb0_1sp0_probe,
 	.remove = boe_tv110xum_lb0_1sp0_remove,
 	.driver = {
-		.name = "panel-novatek-boe_tv110xum_lb0_1sp0",
+		.name = "panel-boe-tv110xum-lb0-1sp0",
 		.of_match_table = boe_tv110xum_lb0_1sp0_of_match,
 	},
 };
