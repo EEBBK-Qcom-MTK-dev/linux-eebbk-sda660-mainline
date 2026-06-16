@@ -22,7 +22,7 @@ jobs:
           sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev bc
       - name: Prepare config
         run: |
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig sdm660_builtin.config
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- sdm660_builtin.config
       - name: Compile kernel
         run: |
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j2
