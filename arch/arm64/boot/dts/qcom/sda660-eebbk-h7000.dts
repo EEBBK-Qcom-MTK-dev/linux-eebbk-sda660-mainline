@@ -245,7 +245,7 @@
 	#size-cells = <0x00>;
 
 	display_panel: panel@0 {
-		compatible = "eebbk,h7000-boe-tv110xum-lb0-1sp0","boe,tv110xum-lb0-1sp0";
+		compatible = "eebbk,h7000-boe-tv110xum-lb0-1sp0", "boe,tv110xum-lb0-1sp0";
 		reg = <0>;
 		vddio-supply = <&vreg_l11a_1p8>;
 		backlight = <&backlight>; /* Using pwm backlight */
