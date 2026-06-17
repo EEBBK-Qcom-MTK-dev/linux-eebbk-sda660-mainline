@@ -277,6 +277,7 @@ config SND_SOC_ALL_CODECS
 	imply SND_SOC_TAS6424
 	imply SND_SOC_TDA7419
 	imply SND_SOC_TFA9879
+	imply SND_SOC_TFA9891
 	imply SND_SOC_TFA989X
 	imply SND_SOC_TLV320ADC3XXX
 	imply SND_SOC_TLV320ADCX140
@@ -2235,6 +2236,10 @@ config SND_SOC_TDA7419
 
 config SND_SOC_TFA9879
 	tristate "NXP Semiconductors TFA9879 amplifier"
+	depends on I2C
+
+config SND_SOC_TFA9891
+	tristate "NXP Semiconductors TFA9891 amplifier"
 	depends on I2C
 
 config SND_SOC_TFA989X
