@@ -338,7 +338,7 @@
 	qcom,current-limit-microamp = <20000>;
 	qcom,num-strings = <2>;
 
-	status = "okay";
+	status = "disabled"; /* Using pwm backlight */
 };
 
 &pm660l_flash {
