@@ -200,20 +200,21 @@
 	status = "okay";
 
 	touchscreen@38 {
-		compatible = "focaltech,ft8201";
-		reg = <0x38>;
-		interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
-		reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
-		iovcc-supply = <&vreg_l11a_1p8>;
+	compatible = "edt,edt-ft5406";
+	reg = <0x38>;
+        interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
+        reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
+        
+        vcc-supply = <&vreg_l11a_1p8>;
+        
+	pinctrl-0 = <&ts_int_active &ts_rst>;
+	pinctrl-names = "default";
 
-		pinctrl-0 = <&ts_pins_active>;
-		pinctrl-1 = <&ts_int_sleep &ts_reset_sleep>;
-		pinctrl-names = "default", "sleep";
-
-		touchscreen-size-x = <1600>;
-		touchscreen-size-y = <2176>;
+	touchscreen-size-x = <1600>;
+	touchscreen-size-y = <2176>;
 	};
 };
+
 
 &blsp2_uart1 {
 	status = "okay";
@@ -666,28 +667,36 @@
 
 &tlmm {
 	gpio-reserved-ranges = <8 4>;
-
-	ts_pins_active: ts-pins-active-state {
-		pins = "gpio66", "gpio67";
+	
+	mdss_dsi_active: mdss-dsi-active-state {
 		function = "gpio";
-		drive-strength = <10>;
-		bias-pull-up;
+		pins = "gpio53";
+		drive-strength = <8>;
+		bias-disable;
 	};
 
-	ts_reset_sleep: ts-reset-sleep-state {
-		pins = "gpio66";
-		function = "gpio";
+	mdss_te_active: mdss-te-active-state {
+		pins = "gpio59";
+		function = "mdp_vsync";
 		drive-strength = <2>;
 		bias-pull-down;
 	};
+	
+    ts_int_active: ts-int-active-state {
+        pins = "gpio67";
+        function = "gpio";
+        drive-strength = <8>;
+        bias-pull-up;
+    };
 
-	ts_int_sleep: ts-int-sleep-state {
-		pins = "gpio67";
+	ts_rst: ts-rst-state {
+		pins = "gpio66";
 		function = "gpio";
-		drive-strength = <2>;
-		bias-disable;
+		drive-strength = <8>;
+		bias-pull-up;
 	};
 };
+
 
 &usb3 {
 	qcom,select-utmi-as-pipe-clk;
