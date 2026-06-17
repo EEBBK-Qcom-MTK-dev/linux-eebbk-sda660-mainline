@@ -200,7 +200,7 @@
 	status = "okay";
 
 	touchscreen@38 {
-	compatible = "edt,edt-ft5406";
+	compatible = "focaltech,ft8201";
 	reg = <0x38>;
         interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
         reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
