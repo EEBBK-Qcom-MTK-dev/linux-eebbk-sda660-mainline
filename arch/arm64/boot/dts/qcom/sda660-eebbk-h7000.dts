@@ -178,16 +178,16 @@
 };
 
 /*&adsp_pil {
-	firmware-name = "qcom/adsp.mdt";
+	firmware-name = "qcom/eebbk/h7000/adsp.mdt";
 };*/
 
 &remoteproc_mss {
-	firmware-name = "mba.mbn", "modem.mdt";
+	firmware-name = "qcom/eebbk/h7000/mba.mbn", "qcom/eebbk/h7000/modem.mdt";
 	status = "okay";
 };
 
 /*&remoteproc_cdsp {
-	firmware-name = "qcom/cdsp.mdt";
+	firmware-name = "qcom/eebbk/h7000/cdsp.mdt";
 	status = "okay";
 };*/
 
