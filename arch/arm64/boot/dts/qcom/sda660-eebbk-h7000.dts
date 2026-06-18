@@ -820,7 +820,9 @@
 			sound-dai = <&q6routing>;
 		};
 		codec {
-			sound-dai = <&audio1>,
+			sound-dai = <&pm660l_codec 0>,
+					<&lpass_codec 0>,
+					<&audio1>,
 					<&audio2>;
 		};
 	};
@@ -834,7 +836,9 @@
 			sound-dai = <&q6routing>;
 		};
 		codec {
-			sound-dai = <&audio1>,
+			sound-dai = <&pm660l_codec 0>,
+					<&lpass_codec 0>,
+					<&audio1>,
 					<&audio2>;
 		};
 	};
