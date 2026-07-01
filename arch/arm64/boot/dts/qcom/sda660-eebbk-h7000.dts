@@ -765,14 +765,16 @@
 	status = "okay";
 
 	audio1: codec@34 {
-		compatible = "nxp,tfa9891";
+		compatible = "nxp,tfa9895";
 		reg = <0x34>;
+		sound-name-prefix = "Speaker Left";
 		#sound-dai-cells = <0>;
 	};
 
 	audio2: codec@35 {
-		compatible = "nxp,tfa9891";
+		compatible = "nxp,tfa9895";
 		reg = <0x35>;
+		sound-name-prefix = "Speaker Right";
 		#sound-dai-cells = <0>;
 	};
 };
