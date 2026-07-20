@@ -200,21 +200,41 @@
 	status = "okay";
 
 	touchscreen@38 {
-	compatible = "focaltech,ft8201";
-	reg = <0x38>;
+	    compatible = "focaltech,ft8201";
+	    reg = <0x38>;
         interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
         reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
         
         vcc-supply = <&vreg_l11a_1p8>;
         
-	pinctrl-0 = <&ts_int_active &ts_rst>;
-	pinctrl-names = "default";
+	    pinctrl-0 = <&ts_int_active &ts_rst>;
+	    pinctrl-names = "default";
 
-	touchscreen-size-x = <1600>;
-	touchscreen-size-y = <2176>;
+	    touchscreen-size-x = <1600>;
+	    touchscreen-size-y = <2176>;
 	};
 };
 
+&blsp_i2c2 {
+
+	tfa98xx@34 {
+		compatible = "nxp,tfa9891";
+		reg = <0x34>;
+		interrupts = <30 0x00>;
+		interrupt-names = "nxp_r_irq";
+		reset-gpio = <&tlmm 12 GPIO_ACTIVE_LOW>;
+		irq-gpio = <&tlmm 30 GPIO_ACTIVE_LOW>;
+	};
+
+	tfa98xx@35 {
+		compatible = "nxp,tfa9891";
+		reg = <0x35>;
+		interrupts = <31 0x00>;
+		interrupt-names = "nxp_l_irq";
+		reset-gpio = <&tlmm 62 GPIO_ACTIVE_LOW>;
+		irq-gpio = <&tlmm 31 GPIO_ACTIVE_LOW>;
+	};
+};
 
 &blsp2_uart1 {
 	status = "okay";
@@ -655,14 +675,6 @@
 	vqmmc-supply = <&vreg_l8a_1p8>;
 
 	status = "okay";
-};
-
-&sdhc_2 {
-	cd-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
-	vmmc-supply = <&vreg_l5b_2p95>;
-	vqmmc-supply = <&vreg_l2b_2p95>;
-
-	status = "disabled";/* H7000 doesn't have any SD card */
 };
 
 &tlmm {

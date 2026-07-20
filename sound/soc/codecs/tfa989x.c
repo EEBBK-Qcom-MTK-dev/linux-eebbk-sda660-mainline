@@ -48,7 +48,7 @@
 #define TFA989X_CURRENTSENSE4		0x49
 
 #define TFA9890_REVISION		0x80
-#define TFA9895_REVISION		0x92
+#define TFA9895_REVISION		0x12
 #define TFA9897_REVISION		0x97
 
 struct tfa989x_rev {
