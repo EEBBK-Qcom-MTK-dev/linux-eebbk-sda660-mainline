@@ -3,10 +3,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   push:
-    branches:
-      - EEBBK-*
-    tags:
-      - v*-sdm660
+
 jobs:
   build:
     runs-on: ubuntu-24.04
