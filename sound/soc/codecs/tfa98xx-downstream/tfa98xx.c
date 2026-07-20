@@ -1035,7 +1035,7 @@ static int tfa98xx_get_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_to_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1068,7 +1068,7 @@ static int tfa98xx_set_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_to_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1152,7 +1152,7 @@ static int tfa98xx_info_vstep(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_info *uinfo)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_to_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1191,7 +1191,7 @@ static int tfa98xx_set_profile(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_component(kcontrol);
+	struct snd_soc_component *codec = snd_soc_dapm_kcontrol_to_component(kcontrol);
 	struct tfa98xx *tfa98xx = snd_soc_component_get_drvdata(codec);
 #else
 	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
@@ -1664,7 +1664,7 @@ static struct snd_soc_dapm_context *snd_soc_codec_get_dapm(struct snd_soc_codec 
 static void tfa98xx_add_widgets(struct tfa98xx *tfa98xx)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,18,0)
-	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(tfa98xx->codec);
+	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(tfa98xx->codec);
 #else
 	struct snd_soc_dapm_context *dapm = snd_soc_codec_get_dapm(tfa98xx->codec);
 #endif
@@ -1746,15 +1746,17 @@ retry:
 		}
 		return Tfa98xx_Error_Fail;
 	}
-	if (tfa98xx_kmsg_regs)
+	if (tfa98xx_kmsg_regs) {
 		dev_dbg(&tfa98xx->i2c->dev, "  WR reg=0x%02x, val=0x%04x %s\n",
 			subaddress, value,
 			ret < 0 ? "Error!!" : "");
+	}
 
-	if (tfa98xx_ftrace_regs)
+	if (tfa98xx_ftrace_regs) {
 		tfa98xx_trace_printk("\tWR     reg=0x%02x, val=0x%04x %s\n",
 			subaddress, value,
 			ret < 0 ? "Error!!" : "");
+	}
 	return error;
 }
 
@@ -1791,15 +1793,16 @@ retry:
 	}
 	*val = value & 0xffff;
 
-	if (tfa98xx_kmsg_regs)
+	if (tfa98xx_kmsg_regs) {
 		dev_dbg(&tfa98xx->i2c->dev, "RD   reg=0x%02x, val=0x%04x %s\n",
 			subaddress, *val,
 			ret < 0 ? "Error!!" : "");
-	if (tfa98xx_ftrace_regs)
+	}
+	if (tfa98xx_ftrace_regs) {
 		tfa98xx_trace_printk("\tRD     reg=0x%02x, val=0x%04x %s\n",
 			subaddress, *val,
 			ret < 0 ? "Error!!" : "");
-
+    }
 	return error;
 }
 
@@ -1898,12 +1901,14 @@ enum Tfa98xx_Error tfa98xx_read_data(struct tfa_device *tfa,
 			error = Tfa98xx_Error_Fail;
 		}
 
-		if (tfa98xx_kmsg_regs)
+		if (tfa98xx_kmsg_regs) {
 			dev_dbg(&tfa98xx_client->dev, "RD-DAT reg=0x%02x, len=%d\n",
 				reg, len);
-		if (tfa98xx_ftrace_regs)
+		}
+		if (tfa98xx_ftrace_regs) {
 			tfa98xx_trace_printk("\t\tRD-DAT reg=0x%02x, len=%d\n",
 				reg, len);
+		}
 	}
 	else {
 		pr_err("No device available\n");
@@ -1942,10 +1947,12 @@ retry:
 	}
 
 	if (ret == len) {
-		if (tfa98xx_kmsg_regs)
+		if (tfa98xx_kmsg_regs) {
 			dev_dbg(&tfa98xx->i2c->dev, "  WR-RAW len=%d\n", len);
-		if (tfa98xx_ftrace_regs)
+		}
+		if (tfa98xx_ftrace_regs) {
 			tfa98xx_trace_printk("\t\tWR-RAW len=%d\n", len);
+		}
 		return Tfa98xx_Error_Ok;
 	}
 	pr_err("  WR-RAW (len=%d) Error I2C send size mismatch %d\n", len, ret);
