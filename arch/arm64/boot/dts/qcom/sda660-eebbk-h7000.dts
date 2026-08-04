@@ -19,7 +19,6 @@
 #include <dt-bindings/phy/phy.h>
 
 /delete-node/ &adsp_region;
-/delete-node/ &cdsp_region;
 /delete-node/ &mba_region;
 /delete-node/ &zap_shader_region;
 
@@ -110,11 +109,6 @@
 			reg = <0x0 0x94800000 0x0 0x200000>;
 			no-map;
 		};
-
-		cdsp_region: cdsp@94b00000 {
-			reg = <0x00 0x94b00000 0x00 0x600000>;
-			no-map;
-		};
 		
 		zap_shader_region: gpu@fa800000 {
 			compatible = "shared-dma-pool";
@@ -134,62 +128,32 @@
 
 };
 
-&gpu_sdm660_opp_table {
-		/* bins 157,146,135 -> bits 6,5,4 */
-		opp-647000000 {
-			opp-hz = /bits/ 64 <647000000>;
-			opp-level = <RPM_SMD_LEVEL_NOM_PLUS>;
-			opp-peak-kBps = <4068000>;
-			opp-supported-hw = <0xff>;
-		};
+&adreno_gpu {
+	status = "okay";
 
-		/* bins 157,146,135 -> bits 6,5,4 */
-		opp-588000000 {
-			opp-hz = /bits/ 64 <588000000>;
-			opp-level = <RPM_SMD_LEVEL_NOM>;
-			opp-peak-kBps = <3072000>;
-			opp-supported-hw = <0xff>;
-		};
-
-		/* bins 157,146,135,122 -> bits 6,5,4,3 */
-		opp-465000000 {
-			opp-hz = /bits/ 64 <465000000>;
-			opp-level = <RPM_SMD_LEVEL_SVS_PLUS>;
-			opp-peak-kBps = <2724000>;
-			opp-supported-hw = <0xff>;
-		};
-
-		/* this one is for SDM636 with bin 90, bit 2 */
-		opp-430000000 {
-			opp-hz = /bits/ 64 <430000000>;
-			opp-level = <RPM_SMD_LEVEL_SVS_PLUS>;
-			opp-peak-kBps = <2724000>;
-			opp-supported-hw = <0xff>;
-		};
+	zap-shader {
+		memory-region = <&zap_shader_region>;
+		firmware-name = "a512_zap.mdt";
+	};
 };
 
-&adreno_gpu {
+&anoc2_smmu {
 	status = "okay";
 };
 
-&adreno_gpu_zap {
-	firmware-name = "a512_zap.mdt"; /*If load it,device will reboot.*/
-	memory-region = <&zap_shader_region>;
-};
-
-/*&adsp_pil {
+&adsp_pil {
 	firmware-name = "qcom/eebbk/h7000/adsp.mdt";
-};*/
+};
 
 &remoteproc_mss {
 	firmware-name = "qcom/eebbk/h7000/mba.mbn", "qcom/eebbk/h7000/modem.mdt";
 	status = "okay";
 };
 
-/*&remoteproc_cdsp {
+&remoteproc_cdsp {
 	firmware-name = "qcom/eebbk/h7000/cdsp.mdt";
 	status = "okay";
-};*/
+};
 
 &venus {
 	// firmware-name = "qcom/venus-4.4/venus.mdt"; /* If load it,device will reboot. */
@@ -200,18 +164,18 @@
 	status = "okay";
 
 	touchscreen@38 {
-	compatible = "focaltech,ft8201";
-	reg = <0x38>;
-        interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
-        reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
-        
+	    compatible = "focaltech,ft8201";
+	    reg = <0x38>;
+	    interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
+	    reset-gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
+    
         vcc-supply = <&vreg_l11a_1p8>;
         
-	pinctrl-0 = <&ts_int_active &ts_rst>;
-	pinctrl-names = "default";
+	    pinctrl-0 = <&ts_int_active &ts_rst>;
+	    pinctrl-names = "default";
 
-	touchscreen-size-x = <1600>;
-	touchscreen-size-y = <2176>;
+	    touchscreen-size-x = <1600>;
+	    touchscreen-size-y = <2176>;
 	};
 };
 
@@ -299,6 +263,22 @@
 	status = "okay";
 };
 
+&gpucc {
+	status = "okay";
+};
+
+&kgsl_smmu {
+	status = "okay";
+};
+
+&lpass_smmu {
+	status = "okay";
+};
+
+&mmcc {
+	status = "okay";
+};
+
 &mmss_smmu {
 	status = "okay";
 };
@@ -332,13 +312,6 @@
 		input-enable;
 		qcom,drive-strength = <PMIC_GPIO_STRENGTH_NO>;
 	};
-};
-&pm660l_wled {
-	qcom,switching-freq = <800>;
-	qcom,current-limit-microamp = <20000>;
-	qcom,num-strings = <2>;
-
-	status = "disabled"; /* Using pwm backlight */
 };
 
 &pm660l_flash {
@@ -709,25 +682,10 @@
 	phy-names = "usb2-phy";
 	usb-role-switch;
 	dr_mode = "otg";
-
-	ports {
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		port@0 {
-			reg = <0>;
-
-			usb_3_dwc3_hs: endpoint { };
-		};
-	};
 };
 
 &pm660_vbus {
 	status = "okay";
-};
-
-&usb_3_dwc3_hs {
-	remote-endpoint = <&pm660_hs_in>;
 };
 
 &wifi {
