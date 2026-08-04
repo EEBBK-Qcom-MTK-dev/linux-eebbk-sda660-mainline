@@ -982,7 +982,7 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
 	 * guessed wrong then access to the RBBM_SECVID_TRUST_CNTL register will
 	 * be blocked and a permissions violation will soon follow.
 	 */
-	ret = a5xx_zap_shader_init(gpu);
+	/*ret = a5xx_zap_shader_init(gpu);
 	if (!ret) {
 		OUT_PKT7(gpu->rb[0], CP_SET_SECURE_MODE, 1);
 		OUT_RING(gpu->rb[0], 0x00000000);
@@ -990,7 +990,7 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
 		a5xx_flush(gpu, gpu->rb[0], true);
 		if (!a5xx_idle(gpu, gpu->rb[0]))
 			return -EINVAL;
-	} else if (ret == -ENODEV) {
+	} else if (ret == -ENODEV) {*/
 		/*
 		 * This device does not use zap shader (but print a warning
 		 * just in case someone got their dt wrong.. hopefully they
@@ -1000,9 +1000,9 @@ static int a5xx_hw_init(struct msm_gpu *gpu)
 		dev_warn_once(gpu->dev->dev,
 			"Zap shader not enabled - using SECVID_TRUST_CNTL instead\n");
 		gpu_write(gpu, REG_A5XX_RBBM_SECVID_TRUST_CNTL, 0x0);
-	} else {
+	/*} else {
 		return ret;
-	}
+	}*/
 
 	/* Last step - yield the ringbuffer */
 	a5xx_preempt_start(gpu);
