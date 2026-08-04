@@ -200,11 +200,13 @@ static int boe_tv110xum_lb0_1sp0_probe(struct mipi_dsi_device *dsi)
 	const struct mipi_dsi_device_info *info;
 	int i, ret;
 
-	pinfo = devm_drm_panel_alloc(dev, struct panel_info, panel,
-				     &boe_tv110xum_lb0_1sp0_panel_funcs,
-				     DRM_MODE_CONNECTOR_DSI);
-	if (IS_ERR(pinfo))
-		return PTR_ERR(pinfo);
+    pinfo = devm_kzalloc(dev, sizeof(*pinfo), GFP_KERNEL);
+    if (!pinfo)
+        return -ENOMEM;
+
+    drm_panel_init(&pinfo->panel, dev,
+                &boe_tv110xum_lb0_1sp0_panel_funcs,
+                DRM_MODE_CONNECTOR_DSI);
 
 	pinfo->vddio = devm_regulator_get(dev, "vddio");
 	if (IS_ERR(pinfo->vddio))
